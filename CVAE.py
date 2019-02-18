@@ -16,7 +16,7 @@ import sys
 from dataloader import DataManager
 
 
-
+#criterion
 class GaussianCriterion(torch.autograd.Function):
     @staticmethod
     def forward(ctx, mu, logSigma2, target):    
