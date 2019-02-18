@@ -33,10 +33,10 @@ class GaussianCriterion(torch.autograd.Function):
         
         if ctx.needs_input_grad[0]:
             # - (target - mu) / sigma^2  --> (1 / sigma^2 = exp(-log(sigma^2)) )
-            grad_mu = (torch.exp(-logSigma2)*(torch.add(target,-1, mu))).mul(-1)
+            grad_mu = (torch.exp(-logSigma2)*(torch.add(target, -1 * mu))).mul(-1)
         if ctx.needs_input_grad[1]:
             # 0.5 - 0.5 * (target - mu)^2 * exp(-logSigma2) = 0.5 - 0.5 * (target - mu)^2 / sigma^2
-            grad_logSigma2 = (torch.exp(-logSigma2)*(torch.add(target,-1,mu).pow(2)).mul(-0.5)).add(0.5)
+            grad_logSigma2 = (torch.exp(-logSigma2)*(torch.add(target, -1*mu).pow(2)).mul(-0.5)).add(0.5)
         return grad_mu, grad_logSigma2, target
 
 class CVAE_creator(nn.Module):
